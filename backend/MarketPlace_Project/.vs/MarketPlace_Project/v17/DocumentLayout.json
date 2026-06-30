@@ -1,0 +1,324 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\tirat\\Downloads\\advanced .net server side tech\\MarketPlace_Project\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{77FF81DE-306B-460C-9C6A-6689368088D3}|MarketPlace_Project.csproj|c:\\users\\tirat\\downloads\\advanced .net server side tech\\marketplace_project\\controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{77FF81DE-306B-460C-9C6A-6689368088D3}|MarketPlace_Project.csproj|solutionrelative:controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{77FF81DE-306B-460C-9C6A-6689368088D3}|MarketPlace_Project.csproj|c:\\users\\tirat\\downloads\\advanced .net server side tech\\marketplace_project\\models\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{77FF81DE-306B-460C-9C6A-6689368088D3}|MarketPlace_Project.csproj|solutionrelative:models\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{77FF81DE-306B-460C-9C6A-6689368088D3}|MarketPlace_Project.csproj|c:\\users\\tirat\\downloads\\advanced .net server side tech\\marketplace_project\\views\\account\\register.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{77FF81DE-306B-460C-9C6A-6689368088D3}|MarketPlace_Project.csproj|solutionrelative:views\\account\\register.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{77FF81DE-306B-460C-9C6A-6689368088D3}|MarketPlace_Project.csproj|c:\\users\\tirat\\downloads\\advanced .net server side tech\\marketplace_project\\views\\account\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{77FF81DE-306B-460C-9C6A-6689368088D3}|MarketPlace_Project.csproj|solutionrelative:views\\account\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{77FF81DE-306B-460C-9C6A-6689368088D3}|MarketPlace_Project.csproj|c:\\users\\tirat\\downloads\\advanced .net server side tech\\marketplace_project\\views\\product\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{77FF81DE-306B-460C-9C6A-6689368088D3}|MarketPlace_Project.csproj|solutionrelative:views\\product\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{77FF81DE-306B-460C-9C6A-6689368088D3}|MarketPlace_Project.csproj|c:\\users\\tirat\\downloads\\advanced .net server side tech\\marketplace_project\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{77FF81DE-306B-460C-9C6A-6689368088D3}|MarketPlace_Project.csproj|solutionrelative:views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{77FF81DE-306B-460C-9C6A-6689368088D3}|MarketPlace_Project.csproj|c:\\users\\tirat\\downloads\\advanced .net server side tech\\marketplace_project\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{77FF81DE-306B-460C-9C6A-6689368088D3}|MarketPlace_Project.csproj|solutionrelative:controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{77FF81DE-306B-460C-9C6A-6689368088D3}|MarketPlace_Project.csproj|c:\\users\\tirat\\downloads\\advanced .net server side tech\\marketplace_project\\views\\product\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{77FF81DE-306B-460C-9C6A-6689368088D3}|MarketPlace_Project.csproj|solutionrelative:views\\product\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{77FF81DE-306B-460C-9C6A-6689368088D3}|MarketPlace_Project.csproj|c:\\users\\tirat\\downloads\\advanced .net server side tech\\marketplace_project\\views\\product\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{77FF81DE-306B-460C-9C6A-6689368088D3}|MarketPlace_Project.csproj|solutionrelative:views\\product\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{77FF81DE-306B-460C-9C6A-6689368088D3}|MarketPlace_Project.csproj|c:\\users\\tirat\\downloads\\advanced .net server side tech\\marketplace_project\\views\\product\\mylistings.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{77FF81DE-306B-460C-9C6A-6689368088D3}|MarketPlace_Project.csproj|solutionrelative:views\\product\\mylistings.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{77FF81DE-306B-460C-9C6A-6689368088D3}|MarketPlace_Project.csproj|c:\\users\\tirat\\downloads\\advanced .net server side tech\\marketplace_project\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{77FF81DE-306B-460C-9C6A-6689368088D3}|MarketPlace_Project.csproj|solutionrelative:controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{77FF81DE-306B-460C-9C6A-6689368088D3}|MarketPlace_Project.csproj|c:\\users\\tirat\\downloads\\advanced .net server side tech\\marketplace_project\\views\\product\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{77FF81DE-306B-460C-9C6A-6689368088D3}|MarketPlace_Project.csproj|solutionrelative:views\\product\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{77FF81DE-306B-460C-9C6A-6689368088D3}|MarketPlace_Project.csproj|c:\\users\\tirat\\downloads\\advanced .net server side tech\\marketplace_project\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{77FF81DE-306B-460C-9C6A-6689368088D3}|MarketPlace_Project.csproj|solutionrelative:models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{77FF81DE-306B-460C-9C6A-6689368088D3}|MarketPlace_Project.csproj|c:\\users\\tirat\\downloads\\advanced .net server side tech\\marketplace_project\\migrations\\20260630183037_m1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{77FF81DE-306B-460C-9C6A-6689368088D3}|MarketPlace_Project.csproj|solutionrelative:migrations\\20260630183037_m1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{77FF81DE-306B-460C-9C6A-6689368088D3}|MarketPlace_Project.csproj|c:\\users\\tirat\\downloads\\advanced .net server side tech\\marketplace_project\\marketplace_project.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{77FF81DE-306B-460C-9C6A-6689368088D3}|MarketPlace_Project.csproj|solutionrelative:marketplace_project.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{77FF81DE-306B-460C-9C6A-6689368088D3}|MarketPlace_Project.csproj|c:\\users\\tirat\\downloads\\advanced .net server side tech\\marketplace_project\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{77FF81DE-306B-460C-9C6A-6689368088D3}|MarketPlace_Project.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{77FF81DE-306B-460C-9C6A-6689368088D3}|MarketPlace_Project.csproj|c:\\users\\tirat\\downloads\\advanced .net server side tech\\marketplace_project\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{77FF81DE-306B-460C-9C6A-6689368088D3}|MarketPlace_Project.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{77FF81DE-306B-460C-9C6A-6689368088D3}|MarketPlace_Project.csproj|c:\\users\\tirat\\downloads\\advanced .net server side tech\\marketplace_project\\data\\marketplacedbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{77FF81DE-306B-460C-9C6A-6689368088D3}|MarketPlace_Project.csproj|solutionrelative:data\\marketplacedbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 100,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 8,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{56df62a4-05a3-4e5b-aa1a-99371ccfb997}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "C:\\Users\\tirat\\Downloads\\advanced .net server side tech\\MarketPlace_Project\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "C:\\Users\\tirat\\Downloads\\advanced .net server side tech\\MarketPlace_Project\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAAGoAAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-06-30T21:17:20.134Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Edit.cshtml",
+              "DocumentMoniker": "C:\\Users\\tirat\\Downloads\\advanced .net server side tech\\MarketPlace_Project\\Views\\Product\\Edit.cshtml",
+              "RelativeDocumentMoniker": "Views\\Product\\Edit.cshtml",
+              "ToolTip": "C:\\Users\\tirat\\Downloads\\advanced .net server side tech\\MarketPlace_Project\\Views\\Product\\Edit.cshtml",
+              "RelativeToolTip": "Views\\Product\\Edit.cshtml",
+              "ViewState": "AgIAAC0AAAAAAAAAAAAAADwAAAALAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-06-30T20:54:17.608Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "MyListings.cshtml",
+              "DocumentMoniker": "C:\\Users\\tirat\\Downloads\\advanced .net server side tech\\MarketPlace_Project\\Views\\Product\\MyListings.cshtml",
+              "RelativeDocumentMoniker": "Views\\Product\\MyListings.cshtml",
+              "ToolTip": "C:\\Users\\tirat\\Downloads\\advanced .net server side tech\\MarketPlace_Project\\Views\\Product\\MyListings.cshtml",
+              "RelativeToolTip": "Views\\Product\\MyListings.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-06-30T20:53:34.917Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Create.cshtml",
+              "DocumentMoniker": "C:\\Users\\tirat\\Downloads\\advanced .net server side tech\\MarketPlace_Project\\Views\\Product\\Create.cshtml",
+              "RelativeDocumentMoniker": "Views\\Product\\Create.cshtml",
+              "ToolTip": "C:\\Users\\tirat\\Downloads\\advanced .net server side tech\\MarketPlace_Project\\Views\\Product\\Create.cshtml",
+              "RelativeToolTip": "Views\\Product\\Create.cshtml",
+              "ViewState": "AgIAACoAAAAAAAAAAAAAADsAAAALAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-06-30T20:52:45.823Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "HomeController.cs",
+              "DocumentMoniker": "C:\\Users\\tirat\\Downloads\\advanced .net server side tech\\MarketPlace_Project\\Controllers\\HomeController.cs",
+              "RelativeDocumentMoniker": "Controllers\\HomeController.cs",
+              "ToolTip": "C:\\Users\\tirat\\Downloads\\advanced .net server side tech\\MarketPlace_Project\\Controllers\\HomeController.cs",
+              "RelativeToolTip": "Controllers\\HomeController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-30T20:52:06.466Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Details.cshtml",
+              "DocumentMoniker": "C:\\Users\\tirat\\Downloads\\advanced .net server side tech\\MarketPlace_Project\\Views\\Product\\Details.cshtml",
+              "RelativeDocumentMoniker": "Views\\Product\\Details.cshtml",
+              "ToolTip": "C:\\Users\\tirat\\Downloads\\advanced .net server side tech\\MarketPlace_Project\\Views\\Product\\Details.cshtml",
+              "RelativeToolTip": "Views\\Product\\Details.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-06-30T20:51:59.47Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\tirat\\Downloads\\advanced .net server side tech\\MarketPlace_Project\\Views\\Product\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\Product\\Index.cshtml",
+              "ToolTip": "C:\\Users\\tirat\\Downloads\\advanced .net server side tech\\MarketPlace_Project\\Views\\Product\\Index.cshtml",
+              "RelativeToolTip": "Views\\Product\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-06-30T20:51:13.988Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ProductController.cs",
+              "DocumentMoniker": "C:\\Users\\tirat\\Downloads\\advanced .net server side tech\\MarketPlace_Project\\Controllers\\ProductController.cs",
+              "RelativeDocumentMoniker": "Controllers\\ProductController.cs",
+              "ToolTip": "C:\\Users\\tirat\\Downloads\\advanced .net server side tech\\MarketPlace_Project\\Controllers\\ProductController.cs",
+              "RelativeToolTip": "Controllers\\ProductController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAOsAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-30T20:43:03.455Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Login.cshtml",
+              "DocumentMoniker": "C:\\Users\\tirat\\Downloads\\advanced .net server side tech\\MarketPlace_Project\\Views\\Account\\Login.cshtml",
+              "RelativeDocumentMoniker": "Views\\Account\\Login.cshtml",
+              "ToolTip": "C:\\Users\\tirat\\Downloads\\advanced .net server side tech\\MarketPlace_Project\\Views\\Account\\Login.cshtml",
+              "RelativeToolTip": "Views\\Account\\Login.cshtml",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAB8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-06-30T20:39:21.219Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Register.cshtml",
+              "DocumentMoniker": "C:\\Users\\tirat\\Downloads\\advanced .net server side tech\\MarketPlace_Project\\Views\\Account\\Register.cshtml",
+              "RelativeDocumentMoniker": "Views\\Account\\Register.cshtml",
+              "ToolTip": "C:\\Users\\tirat\\Downloads\\advanced .net server side tech\\MarketPlace_Project\\Views\\Account\\Register.cshtml",
+              "RelativeToolTip": "Views\\Account\\Register.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-06-30T18:45:04.409Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "AccountController.cs",
+              "DocumentMoniker": "C:\\Users\\tirat\\Downloads\\advanced .net server side tech\\MarketPlace_Project\\Controllers\\AccountController.cs",
+              "RelativeDocumentMoniker": "Controllers\\AccountController.cs",
+              "ToolTip": "C:\\Users\\tirat\\Downloads\\advanced .net server side tech\\MarketPlace_Project\\Controllers\\AccountController.cs",
+              "RelativeToolTip": "Controllers\\AccountController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAGEAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-30T18:40:05.717Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "20260630183037_m1.cs",
+              "DocumentMoniker": "C:\\Users\\tirat\\Downloads\\advanced .net server side tech\\MarketPlace_Project\\Migrations\\20260630183037_m1.cs",
+              "RelativeDocumentMoniker": "Migrations\\20260630183037_m1.cs",
+              "ToolTip": "C:\\Users\\tirat\\Downloads\\advanced .net server side tech\\MarketPlace_Project\\Migrations\\20260630183037_m1.cs",
+              "RelativeToolTip": "Migrations\\20260630183037_m1.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-30T18:30:38.194Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\tirat\\Downloads\\advanced .net server side tech\\MarketPlace_Project\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\tirat\\Downloads\\advanced .net server side tech\\MarketPlace_Project\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-30T18:27:27.542Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\tirat\\Downloads\\advanced .net server side tech\\MarketPlace_Project\\appsettings.json",
+              "RelativeDocumentMoniker": "appsettings.json",
+              "ToolTip": "C:\\Users\\tirat\\Downloads\\advanced .net server side tech\\MarketPlace_Project\\appsettings.json",
+              "RelativeToolTip": "appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-06-30T18:26:55.439Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "MarketPlaceDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\tirat\\Downloads\\advanced .net server side tech\\MarketPlace_Project\\Data\\MarketPlaceDbContext.cs",
+              "RelativeDocumentMoniker": "Data\\MarketPlaceDbContext.cs",
+              "ToolTip": "C:\\Users\\tirat\\Downloads\\advanced .net server side tech\\MarketPlace_Project\\Data\\MarketPlaceDbContext.cs",
+              "RelativeToolTip": "Data\\MarketPlaceDbContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-30T18:24:00.835Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "MarketPlace_Project.csproj",
+              "DocumentMoniker": "C:\\Users\\tirat\\Downloads\\advanced .net server side tech\\MarketPlace_Project\\MarketPlace_Project.csproj",
+              "RelativeDocumentMoniker": "MarketPlace_Project.csproj",
+              "ToolTip": "C:\\Users\\tirat\\Downloads\\advanced .net server side tech\\MarketPlace_Project\\MarketPlace_Project.csproj",
+              "RelativeToolTip": "MarketPlace_Project.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-06-30T18:23:32.757Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Product.cs",
+              "DocumentMoniker": "C:\\Users\\tirat\\Downloads\\advanced .net server side tech\\MarketPlace_Project\\Models\\Product.cs",
+              "RelativeDocumentMoniker": "Models\\Product.cs",
+              "ToolTip": "C:\\Users\\tirat\\Downloads\\advanced .net server side tech\\MarketPlace_Project\\Models\\Product.cs",
+              "RelativeToolTip": "Models\\Product.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB0AAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-30T18:14:01.031Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "User.cs",
+              "DocumentMoniker": "C:\\Users\\tirat\\Downloads\\advanced .net server side tech\\MarketPlace_Project\\Models\\User.cs",
+              "RelativeDocumentMoniker": "Models\\User.cs",
+              "ToolTip": "C:\\Users\\tirat\\Downloads\\advanced .net server side tech\\MarketPlace_Project\\Models\\User.cs",
+              "RelativeToolTip": "Models\\User.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-30T18:13:45.472Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
