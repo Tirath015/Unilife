@@ -5,6 +5,7 @@ import { useAuth } from "../context/AuthContext";
 import { getInitials } from "../utils/formatters";
 import {marketplaceService} from "../services/marketplaceService";
 import { useWishlist } from "../context/WishlistContext";
+import { Link } from "react-router-dom";
 
 export function Profile() {
   const { user, updateProfilePhoto } = useAuth();
@@ -104,11 +105,16 @@ useEffect(() => {
   <p className="profile-photo-hint">Click photo to upload</p>
 </div>
 
-          <div>
-            <h2>{user?.fullName}</h2>
-            <p>{user?.program}</p>
-            <p>{user?.campus}</p>
-          </div>
+          <div className="profile-user-info">
+  <h2>{user?.fullName}</h2>
+  <p>{user?.program}</p>
+  <p>{user?.campus}</p>
+
+  <Link to="/update-password" className="profile-update-password-btn">
+    <span className="material-symbols-rounded">lock_reset</span>
+    Update Password
+  </Link>
+</div>
         </div>
 
         <div className="profile-grid">

@@ -1,15 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Card } from "../../components/ui/Card";
 import { getPasswordErrors } from "../../utils/validators";
 import { adminLocalService } from "../services/adminLocalService";
+
+const colleges = {
+  Sheridan: ["Davis Campus", "Trafalgar Road Campus", "Hazel McCallion Campus"],
+  Humber: ["North Campus", "Lakeshore Campus", "International Graduate School"],
+  Seneca: ["Newnham Campus", "King Campus", "Seneca@York Campus", "Markham Campus"],
+  Conestoga: ["Doon Campus", "Waterloo Campus", "Cambridge Campus", "Guelph Campus"],
+};
 
 const emptyUserForm = {
   fullName: "",
   email: "",
   password: "",
-  studentId: "",
+  college: "Sheridan",
+  campus: "Davis Campus",
   program: "Computer Systems Technology",
-  campus: "Main Campus",
   role: "student",
 };
 
@@ -21,7 +28,34 @@ export function AdminUsers() {
   const [editForm, setEditForm] = useState({});
   const [formError, setFormError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [sortConfig, setSortConfig] = useState({
+  key: "fullName",
+  direction: "asc",
+});
 
+function handleSort(key) {
+  setSortConfig((current) => ({
+    key,
+    direction:
+      current.key === key && current.direction === "asc" ? "desc" : "asc",
+  }));
+}
+
+const sortedUsers = useMemo(() => {
+  return [...users].sort((a, b) => {
+    const aValue = a[sortConfig.key] ?? "";
+    const bValue = b[sortConfig.key] ?? "";
+
+    return sortConfig.direction === "asc"
+      ? String(aValue).localeCompare(String(bValue))
+      : String(bValue).localeCompare(String(aValue));
+  });
+}, [users, sortConfig]);
+
+function sortIcon(key) {
+  if (sortConfig.key !== key) return "unfold_more";
+  return sortConfig.direction === "asc" ? "arrow_upward" : "arrow_downward";
+}
   function loadUsers() {
     adminLocalService.getUsers().then(setUsers);
   }
@@ -51,7 +85,14 @@ export function AdminUsers() {
 
   function startEdit(user) {
     setEditingUserId(user.id);
-    setEditForm(user);
+    setEditForm({
+      ...user,
+      college: user.college || "Sheridan",
+      campus: user.campus || "Davis Campus",
+      program: user.program || "Computer Systems Technology",
+      role: user.role || "student",
+      status: user.status || "Active",
+    });
   }
 
   function cancelEdit() {
@@ -117,8 +158,8 @@ export function AdminUsers() {
               Full Name
               <input
                 value={newUser.fullName}
-                onChange={(e) =>
-                  setNewUser({ ...newUser, fullName: e.target.value })
+                onChange={(event) =>
+                  setNewUser({ ...newUser, fullName: event.target.value })
                 }
                 placeholder="Example: Jasvir Singh"
                 required
@@ -130,8 +171,8 @@ export function AdminUsers() {
               <input
                 type="email"
                 value={newUser.email}
-                onChange={(e) =>
-                  setNewUser({ ...newUser, email: e.target.value })
+                onChange={(event) =>
+                  setNewUser({ ...newUser, email: event.target.value })
                 }
                 placeholder="jasvir@college.ca"
                 required
@@ -144,8 +185,8 @@ export function AdminUsers() {
                 <input
                   type={showPassword ? "text" : "password"}
                   value={newUser.password}
-                  onChange={(e) =>
-                    setNewUser({ ...newUser, password: e.target.value })
+                  onChange={(event) =>
+                    setNewUser({ ...newUser, password: event.target.value })
                   }
                   placeholder="Example: Jasvir123!"
                   required
@@ -165,34 +206,47 @@ export function AdminUsers() {
             </label>
 
             <label>
-              Student ID
-              <input
-                value={newUser.studentId}
-                onChange={(e) =>
-                  setNewUser({ ...newUser, studentId: e.target.value })
+              College
+              <select
+                value={newUser.college}
+                onChange={(event) =>
+                  setNewUser({
+                    ...newUser,
+                    college: event.target.value,
+                    campus: colleges[event.target.value][0],
+                  })
                 }
-                placeholder="C1234567"
-                required
-              />
+              >
+                {Object.keys(colleges).map((college) => (
+                  <option key={college} value={college}>
+                    {college}
+                  </option>
+                ))}
+              </select>
+            </label>
+
+            <label>
+              Campus
+              <select
+                value={newUser.campus}
+                onChange={(event) =>
+                  setNewUser({ ...newUser, campus: event.target.value })
+                }
+              >
+                {colleges[newUser.college].map((campus) => (
+                  <option key={campus} value={campus}>
+                    {campus}
+                  </option>
+                ))}
+              </select>
             </label>
 
             <label>
               Program
               <input
                 value={newUser.program}
-                onChange={(e) =>
-                  setNewUser({ ...newUser, program: e.target.value })
-                }
-                required
-              />
-            </label>
-
-            <label>
-              Campus
-              <input
-                value={newUser.campus}
-                onChange={(e) =>
-                  setNewUser({ ...newUser, campus: e.target.value })
+                onChange={(event) =>
+                  setNewUser({ ...newUser, program: event.target.value })
                 }
                 required
               />
@@ -202,8 +256,8 @@ export function AdminUsers() {
               Role
               <select
                 value={newUser.role}
-                onChange={(e) =>
-                  setNewUser({ ...newUser, role: e.target.value })
+                onChange={(event) =>
+                  setNewUser({ ...newUser, role: event.target.value })
                 }
               >
                 <option value="student">student</option>
@@ -221,20 +275,64 @@ export function AdminUsers() {
       <Card className="admin-table-card">
         <table className="admin-table">
           <thead>
-            <tr>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Student ID</th>
-              <th>Program</th>
-              <th>Role</th>
-              <th>Status</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
+  <tr>
+    <th>
+      <button className="admin-sort-button" onClick={() => handleSort("fullName")}>
+        Name
+        <span className="material-symbols-rounded">{sortIcon("fullName")}</span>
+      </button>
+    </th>
+
+    <th>
+      <button className="admin-sort-button" onClick={() => handleSort("email")}>
+        Email
+        <span className="material-symbols-rounded">{sortIcon("email")}</span>
+      </button>
+    </th>
+
+    <th>
+      <button className="admin-sort-button" onClick={() => handleSort("college")}>
+        College
+        <span className="material-symbols-rounded">{sortIcon("college")}</span>
+      </button>
+    </th>
+
+    <th>
+      <button className="admin-sort-button" onClick={() => handleSort("campus")}>
+        Campus
+        <span className="material-symbols-rounded">{sortIcon("campus")}</span>
+      </button>
+    </th>
+
+    <th>
+      <button className="admin-sort-button" onClick={() => handleSort("program")}>
+        Program
+        <span className="material-symbols-rounded">{sortIcon("program")}</span>
+      </button>
+    </th>
+
+    <th>
+      <button className="admin-sort-button" onClick={() => handleSort("role")}>
+        Role
+        <span className="material-symbols-rounded">{sortIcon("role")}</span>
+      </button>
+    </th>
+
+    <th>
+      <button className="admin-sort-button" onClick={() => handleSort("status")}>
+        Status
+        <span className="material-symbols-rounded">{sortIcon("status")}</span>
+      </button>
+    </th>
+
+    <th>Actions</th>
+  </tr>
+</thead>
 
           <tbody>
-            {users.map((user) => {
+            {sortedUsers.map((user) => {
               const isEditing = editingUserId === user.id;
+              const selectedCollege = editForm.college || "Sheridan";
 
               return (
                 <tr key={user.id}>
@@ -242,8 +340,8 @@ export function AdminUsers() {
                     {isEditing ? (
                       <input
                         value={editForm.fullName}
-                        onChange={(e) =>
-                          setEditForm({ ...editForm, fullName: e.target.value })
+                        onChange={(event) =>
+                          setEditForm({ ...editForm, fullName: event.target.value })
                         }
                       />
                     ) : (
@@ -255,8 +353,8 @@ export function AdminUsers() {
                     {isEditing ? (
                       <input
                         value={editForm.email}
-                        onChange={(e) =>
-                          setEditForm({ ...editForm, email: e.target.value })
+                        onChange={(event) =>
+                          setEditForm({ ...editForm, email: event.target.value })
                         }
                       />
                     ) : (
@@ -266,14 +364,43 @@ export function AdminUsers() {
 
                   <td>
                     {isEditing ? (
-                      <input
-                        value={editForm.studentId}
-                        onChange={(e) =>
-                          setEditForm({ ...editForm, studentId: e.target.value })
+                      <select
+                        value={editForm.college}
+                        onChange={(event) =>
+                          setEditForm({
+                            ...editForm,
+                            college: event.target.value,
+                            campus: colleges[event.target.value][0],
+                          })
                         }
-                      />
+                      >
+                        {Object.keys(colleges).map((college) => (
+                          <option key={college} value={college}>
+                            {college}
+                          </option>
+                        ))}
+                      </select>
                     ) : (
-                      user.studentId
+                      user.college || "Not selected"
+                    )}
+                  </td>
+
+                  <td>
+                    {isEditing ? (
+                      <select
+                        value={editForm.campus}
+                        onChange={(event) =>
+                          setEditForm({ ...editForm, campus: event.target.value })
+                        }
+                      >
+                        {colleges[selectedCollege].map((campus) => (
+                          <option key={campus} value={campus}>
+                            {campus}
+                          </option>
+                        ))}
+                      </select>
+                    ) : (
+                      user.campus || "Not selected"
                     )}
                   </td>
 
@@ -281,8 +408,8 @@ export function AdminUsers() {
                     {isEditing ? (
                       <input
                         value={editForm.program}
-                        onChange={(e) =>
-                          setEditForm({ ...editForm, program: e.target.value })
+                        onChange={(event) =>
+                          setEditForm({ ...editForm, program: event.target.value })
                         }
                       />
                     ) : (
@@ -294,8 +421,8 @@ export function AdminUsers() {
                     {isEditing ? (
                       <select
                         value={editForm.role}
-                        onChange={(e) =>
-                          setEditForm({ ...editForm, role: e.target.value })
+                        onChange={(event) =>
+                          setEditForm({ ...editForm, role: event.target.value })
                         }
                       >
                         <option value="student">student</option>

@@ -146,6 +146,149 @@ export const authService = {
     return response;
   },
 
+  async forgotPassword(email) {
+  if (USE_MOCKS) {
+    const users = getMockUsers();
+    const normalizedEmail = email?.toLowerCase().trim();
+
+    const matchedUser = users.find(
+      (user) => user.email?.toLowerCase().trim() === normalizedEmail
+    );
+
+    if (!matchedUser) {
+      throw new Error("No account found with this email.");
+    }
+
+    const token = btoa(`${normalizedEmail}:${Date.now()}`);
+
+    const resetRequests = JSON.parse(
+      localStorage.getItem("unilife_password_reset_tokens") || "{}"
+    );
+
+    resetRequests[token] = {
+      email: normalizedEmail,
+      createdAt: new Date().toISOString(),
+    };
+
+    localStorage.setItem(
+      "unilife_password_reset_tokens",
+      JSON.stringify(resetRequests)
+    );
+
+    return delay({
+      message: "Password reset email sent.",
+      token,
+      resetLink: `${window.location.origin}/reset-password?token=${token}`,
+    });
+  }
+
+  return apiRequest("/auth/forgot-password", {
+    method: "POST",
+    body: { email },
+  });
+},
+
+async resetPassword(payload) {
+  if (USE_MOCKS) {
+    const { token, newPassword } = payload;
+
+    const resetRequests = JSON.parse(
+      localStorage.getItem("unilife_password_reset_tokens") || "{}"
+    );
+
+    const request = resetRequests[token];
+
+    if (!request) {
+      throw new Error("Invalid or expired reset link.");
+    }
+
+    const users = getMockUsers();
+
+    const updatedUsers = users.map((user) =>
+      user.email?.toLowerCase().trim() === request.email
+        ? { ...user, password: newPassword }
+        : user
+    );
+
+    saveMockUsers(updatedUsers);
+
+    delete resetRequests[token];
+
+    localStorage.setItem(
+      "unilife_password_reset_tokens",
+      JSON.stringify(resetRequests)
+    );
+
+    const currentUser = JSON.parse(
+      localStorage.getItem(STORAGE_KEYS.user) || "null"
+    );
+
+    if (
+      currentUser?.email?.toLowerCase().trim() === request.email
+    ) {
+      localStorage.setItem(
+        STORAGE_KEYS.user,
+        JSON.stringify({
+          ...currentUser,
+        })
+      );
+    }
+
+    return delay({
+      message: "Password updated successfully.",
+    });
+  }
+
+  return apiRequest("/auth/reset-password", {
+    method: "POST",
+    body: payload,
+  });
+},
+async updatePassword(payload) {
+  if (USE_MOCKS) {
+    const currentUser = JSON.parse(
+      localStorage.getItem(STORAGE_KEYS.user) || "null"
+    );
+
+    if (!currentUser?.email) {
+      throw new Error("You must be logged in to update your password.");
+    }
+
+    const users = getMockUsers();
+
+    const matchedUser = users.find(
+      (user) =>
+        user.email?.toLowerCase().trim() ===
+        currentUser.email?.toLowerCase().trim()
+    );
+
+    if (!matchedUser) {
+      throw new Error("User account not found.");
+    }
+
+    if (matchedUser.password !== payload.currentPassword) {
+      throw new Error("Current password is incorrect.");
+    }
+
+    const updatedUsers = users.map((user) =>
+      user.email?.toLowerCase().trim() ===
+      currentUser.email?.toLowerCase().trim()
+        ? { ...user, password: payload.newPassword }
+        : user
+    );
+
+    saveMockUsers(updatedUsers);
+
+    return delay({
+      message: "Password updated successfully.",
+    });
+  }
+
+  return apiRequest("/auth/update-password", {
+    method: "POST",
+    body: payload,
+  });
+},
   async getCurrentUser() {
     if (USE_MOCKS) {
       const stored = localStorage.getItem(STORAGE_KEYS.user);

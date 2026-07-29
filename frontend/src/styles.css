@@ -1688,9 +1688,342 @@ img {
 .seller-description {
   color: var(--muted);
   line-height: 1.7;
-  margin-bottom: 16px;
+  margin-bottom: 16px;}
+/* =========================================================
+   Marketplace Professional Filters - Amazon/Shein Style
+========================================================= */
+
+.marketplace-filter-panel {
+  padding: 18px;
+  display: grid;
+  gap: 18px;
+  border-radius: 22px;
+  margin-bottom: 22px;
+  background: white;
+  border: 1px solid var(--border);
+  box-shadow: var(--soft-shadow);
 }
 
+.marketplace-search-row {
+  display: grid;
+  grid-template-columns: minmax(420px, 1fr) 260px 220px auto;
+  gap: 12px;
+  align-items: center;
+}
+
+.marketplace-search-field {
+  position: relative;
+  display: block;
+  width: 100%;
+}
+
+.marketplace-search-field .material-symbols-rounded {
+  position: absolute;
+  top: 50%;
+  left: 15px;
+  transform: translateY(-50%);
+  color: var(--secondary);
+  font-size: 22px;
+}
+
+.marketplace-search-field input {
+  width: 100%;
+  height: 52px;
+  border: 1px solid #cbd5e1;
+  border-radius: 999px;
+  background: #f8fafc;
+  color: var(--text);
+  padding: 0 18px 0 48px;
+  font-weight: 700;
+  outline: none;
+}
+
+.marketplace-search-field input:focus {
+  background: white;
+  border-color: var(--secondary);
+  box-shadow: 0 0 0 4px #dbeafe;
+}
+
+.marketplace-select-field {
+  position: relative;
+  display: block;
+}
+
+.marketplace-select-field .material-symbols-rounded {
+  position: absolute;
+  top: 50%;
+  left: 14px;
+  transform: translateY(-50%);
+  color: var(--secondary);
+  font-size: 20px;
+  z-index: 1;
+}
+
+.marketplace-select-field select {
+  width: 100%;
+  height: 52px;
+  border: 1px solid #cbd5e1;
+  border-radius: 999px;
+  background: #f8fafc;
+  color: var(--text);
+  padding: 0 16px 0 44px;
+  font-weight: 900;
+  outline: none;
+}
+
+.marketplace-select-field select:focus {
+  background: white;
+  border-color: var(--secondary);
+  box-shadow: 0 0 0 4px #dbeafe;
+}
+
+.marketplace-search-row .btn {
+  height: 52px;
+  min-width: 86px;
+  border-radius: 999px;
+  white-space: nowrap;
+  font-weight: 900;
+}
+
+.marketplace-category-section {
+  border-top: 1px solid var(--border);
+  padding-top: 16px;
+  display: grid;
+  gap: 12px;
+}
+
+.category-section-label {
+  color: #334155;
+  font-weight: 900;
+  font-size: 0.9rem;
+}
+
+.category-pill-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.category-pill-row::-webkit-scrollbar {
+  height: 6px;
+}
+
+.category-pill-row::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 999px;
+}
+
+.category-pill {
+  border: 1px solid #dbe3ef;
+  background: #f8fafc;
+  color: #475569;
+  border-radius: 999px;
+  padding: 10px 16px;
+  font-size: 0.92rem;
+  font-weight: 900;
+  white-space: nowrap;
+  transition: 0.2s ease;
+}
+
+.category-pill:hover {
+  background: #eff6ff;
+  color: var(--secondary);
+  border-color: #bfdbfe;
+}
+
+.category-pill.active {
+  background: var(--secondary);
+  color: white;
+  border-color: var(--secondary);
+  box-shadow: 0 10px 24px rgba(37, 99, 235, 0.22);
+}
+/* =========================================================
+   Create Listing Professional Layout
+========================================================= */
+
+.create-listing-page {
+  width: 100%;
+}
+
+.create-listing-error {
+  max-width: 1180px;
+  margin-bottom: 18px;
+}
+
+.create-listing-layout {
+  width: 100%;
+  display: grid;
+  grid-template-columns: minmax(360px, 0.85fr) minmax(520px, 1.15fr);
+  gap: 24px;
+  align-items: start;
+}
+
+.listing-upload-card,
+.listing-details-card {
+  padding: 26px;
+  border-radius: 24px;
+}
+
+.listing-card-heading {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 22px;
+}
+
+.listing-card-heading > .material-symbols-rounded {
+  width: 46px;
+  height: 46px;
+  border-radius: 16px;
+  background: #eff6ff;
+  color: var(--secondary);
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+.listing-card-heading h2 {
+  margin: 0 0 6px;
+  font-size: 1.45rem;
+  color: var(--text);
+  letter-spacing: -0.03em;
+}
+
+.listing-card-heading p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.5;
+  font-weight: 600;
+}
+
+.modern-upload-box {
+  width: 100%;
+  min-height: 380px;
+  border: 2px dashed #bfdbfe;
+  background: linear-gradient(135deg, #eff6ff 0%, #f8fafc 100%);
+  border-radius: 22px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.modern-upload-box:hover {
+  border-color: var(--secondary);
+  background: #eff6ff;
+}
+
+.file-input {
+  display: none;
+}
+
+.upload-placeholder {
+  display: grid;
+  place-items: center;
+  text-align: center;
+  gap: 10px;
+  color: var(--primary);
+  padding: 30px;
+}
+
+.upload-placeholder .material-symbols-rounded {
+  width: 72px;
+  height: 72px;
+  border-radius: 24px;
+  background: white;
+  color: var(--secondary);
+  display: grid;
+  place-items: center;
+  font-size: 2.5rem;
+  box-shadow: var(--soft-shadow);
+}
+
+.upload-placeholder strong {
+  font-size: 1.1rem;
+  font-weight: 900;
+}
+
+.upload-placeholder small {
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.main-upload-preview {
+  width: 100%;
+  height: 380px;
+  object-fit: cover;
+}
+
+.listing-photo-preview-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.listing-photo-preview {
+  position: relative;
+  height: 94px;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: #f8fafc;
+  box-shadow: var(--soft-shadow);
+}
+
+.listing-photo-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.listing-photo-preview button {
+  position: absolute;
+  top: 7px;
+  right: 7px;
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.75);
+  color: white;
+  display: grid;
+  place-items: center;
+}
+
+.listing-photo-preview button .material-symbols-rounded {
+  font-size: 18px;
+}
+
+.main-photo-badge {
+  position: absolute;
+  left: 8px;
+  bottom: 8px;
+  background: var(--secondary);
+  color: white;
+  border-radius: 999px;
+  padding: 4px 9px;
+  font-size: 0.72rem;
+  font-weight: 900;
+}
+
+.listing-details-card .form-grid {
+  gap: 18px;
+}
+
+.listing-details-card textarea {
+  resize: vertical;
+  min-height: 150px;
+}
+
+.listing-details-card .btn {
+  width: 100%;
+  min-height: 50px;
+  font-weight: 900;
+}
 /* =========================================================
    Product Details Full Image Layout
 ========================================================= */
@@ -2033,7 +2366,6 @@ img {
   color: var(--muted);
   line-height: 1.6;
 }
-
 /* =========================================================
    12. Profile
 ========================================================= */
@@ -2044,28 +2376,16 @@ img {
 }
 
 .profile-cover {
-  height: 160px;
+  height: 150px;
   background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
 }
 
 .profile-main-row {
   display: flex;
-  align-items: flex-end;
+  align-items: flex-start;
   gap: 28px;
-  padding: 0 32px 28px;
-  margin-top: -62px;
-}
-
-.profile-main-row h2 {
-  margin: 0 0 6px;
-  font-size: 1.8rem;
-  color: var(--text);
-}
-
-.profile-main-row p {
-  margin: 4px 0;
-  color: var(--muted);
-  font-weight: 600;
+  padding: 0 32px 26px;
+  margin-top: -52px;
 }
 
 .profile-photo-section {
@@ -2074,6 +2394,7 @@ img {
   align-items: center;
   gap: 8px;
   flex-shrink: 0;
+  z-index: 2;
 }
 
 .profile-photo-button {
@@ -2130,6 +2451,48 @@ img {
   margin: 0;
 }
 
+.profile-user-info {
+  display: grid;
+  gap: 4px;
+  padding-top: 68px;
+}
+
+.profile-user-info h2 {
+  margin: 0 0 4px;
+  font-size: 1.8rem;
+  color: var(--text);
+}
+
+.profile-user-info p {
+  margin: 0;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.profile-update-password-btn {
+  margin-top: 14px;
+  width: fit-content;
+  min-height: 38px;
+  padding: 0 15px;
+  border-radius: 12px;
+  background: var(--secondary);
+  color: white;
+  font-weight: 900;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: 0.2s ease;
+}
+
+.profile-update-password-btn:hover {
+  background: var(--primary);
+  transform: translateY(-1px);
+}
+
+.profile-update-password-btn .material-symbols-rounded {
+  font-size: 20px;
+}
+
 .profile-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -2154,7 +2517,6 @@ img {
   color: var(--text);
   font-size: 1rem;
 }
-
 /* =========================================================
    Admin Area
 ========================================================= */
@@ -2565,6 +2927,28 @@ img {
   display: flex;
   align-items: center;
   gap: 12px;
+}
+.admin-sort-button {
+  border: none;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  padding: 0;
+}
+
+.admin-sort-button:hover {
+  color: var(--secondary);
+}
+
+.admin-sort-button .material-symbols-rounded {
+  font-size: 17px;
 }
 
 @media (max-width: 1000px) {
@@ -3180,5 +3564,31 @@ img {
 
   .hero-overlay {
     padding: 48px 16px;
+  }
+}
+@media (max-width: 1100px) {
+  .marketplace-search-row {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .marketplace-search-row .btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 700px) {
+  .marketplace-search-row {
+    grid-template-columns: 1fr;
+  }
+
+  .marketplace-search-field input,
+  .marketplace-select-field select,
+  .marketplace-search-row .btn {
+    height: 48px;
+  }
+
+  .category-pill {
+    padding: 9px 14px;
+    font-size: 0.86rem;
   }
 }
