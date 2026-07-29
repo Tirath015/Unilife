@@ -57,27 +57,38 @@ function getAllMockProducts() {
 }
 
 function filterProducts(params = {}) {
-  const { query = "", category = "All", sort = "newest" } = params;
+  const {
+    query = "",
+    category = "All",
+    location = "All",
+    sort = "newest",
+  } = params;
+
   const q = query.trim().toLowerCase();
 
   const result = getAllMockProducts().filter((product) => {
     const status = product.status || "Active";
 
-    if (status === "Hidden" || status === "Sold") {
-      return false;
-    }
+    if (status === "Hidden" || status === "Sold") return false;
 
-    const matchesQuery =
-      !q ||
-      `${product.title} ${product.seller} ${product.sellerName || ""} ${
-        product.category
-      }`
-        .toLowerCase()
-        .includes(q);
+    const searchableText = `
+      ${product.title || ""}
+      ${product.seller || ""}
+      ${product.sellerName || ""}
+      ${product.category || ""}
+      ${product.location || ""}
+      ${product.description || ""}
+    `.toLowerCase();
 
-    const matchesCategory = category === "All" || product.category === category;
+    const matchesQuery = !q || searchableText.includes(q);
 
-    return matchesQuery && matchesCategory;
+    const matchesCategory =
+      category === "All" || product.category === category;
+
+    const matchesLocation =
+      location === "All" || product.location === location;
+
+    return matchesQuery && matchesCategory && matchesLocation;
   });
 
   if (sort === "price-low") {

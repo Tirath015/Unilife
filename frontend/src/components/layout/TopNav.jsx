@@ -34,8 +34,7 @@ export function TopNav() {
   return (
     <header className="user-topbar">
       <div>
-        <span className="eyebrow">Student Area</span>
-        <h1>UniLife Dashboard</h1>
+        <h1 className="eyebrow">Student Area</h1>
       </div>
 
       <div className="user-topbar-actions">

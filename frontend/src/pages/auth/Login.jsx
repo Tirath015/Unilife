@@ -98,18 +98,7 @@ export function Login() {
             </div>
           </label>
 
-          <div className="form-row-between">
-            <label className="checkbox-row">
-              <input
-                type="checkbox"
-                checked={form.remember}
-                onChange={(e) =>
-                  setForm({ ...form, remember: e.target.checked })
-                }
-              />
-              Remember me
-            </label>
-
+          <div className="forgot-password-link">
             <Link to="/forgot-password">Forgot Password?</Link>
           </div>
 

@@ -56,18 +56,18 @@ export const adminLocalService = {
     const users = read(USERS_KEY, adminUsers);
 
     const newUser = {
-      id: Date.now(),
-      fullName: payload.fullName,
-      email: payload.email,
-      password: payload.password || "Password123!",
-      studentId: payload.studentId || `C${Date.now().toString().slice(-7)}`,
-      program: payload.program || "Computer Systems Technology",
-      campus: payload.campus || "Main Campus",
-      role: payload.role || "student",
-      status: "Active",
-      joinedAt: new Date().toISOString(),
-      photoUrl: "",
-    };
+  id: Date.now(),
+  fullName: payload.fullName,
+  email: payload.email,
+  password: payload.password || "Password123!",
+  college: payload.college || "Sheridan",
+  campus: payload.campus || "Davis Campus",
+  program: payload.program || "Computer Systems Technology",
+  role: payload.role || "student",
+  status: "Active",
+  joinedAt: new Date().toISOString(),
+  photoUrl: "",
+};
 
     return Promise.resolve(write(USERS_KEY, [newUser, ...users]));
   },
@@ -110,34 +110,28 @@ export const adminLocalService = {
     const listings = read(USER_LISTINGS_KEY, []);
 
     const newListing = {
-      id: Date.now(),
-      title: payload.title,
-      category: payload.category || "Textbooks",
-      price: Number(payload.price) || 0,
-      description: payload.description || "No description provided.",
-      photos: payload.photos || [],
-      imageUrl:
-        payload.imageUrl ||
-        payload.imagePreview ||
-        payload.photos?.[0] ||
-        FALLBACK_IMAGE,
-      imagePreview:
-        payload.imageUrl ||
-        payload.imagePreview ||
-        payload.photos?.[0] ||
-        FALLBACK_IMAGE,
-      image: payload.imageUrl || payload.imagePreview || payload.photos?.[0] || FALLBACK_IMAGE,
-      seller: payload.sellerName || "Admin",
-      sellerName: payload.sellerName || "Admin",
-      sellerEmail: payload.sellerEmail || "admin@college.ca",
-      sellerRating: Number(payload.sellerRating) || 5,
-      rating: Number(payload.sellerRating) || 5,
-      sellerBio:
-        payload.sellerBio ||
-        "Verified UniLife seller. Contact to confirm pickup details.",
-      status: payload.status || "Active",
-      postedAt: new Date().toISOString(),
-    };
+  id: Date.now(),
+  title: payload.title,
+  category: payload.category || "Textbooks",
+  price: Number(payload.price) || 0,
+  condition: payload.condition || "Good",
+  location: payload.location || "Brampton",
+  description: payload.description || "No description provided.",
+  photos: payload.photos || [],
+  imageUrl: payload.imageUrl || payload.imagePreview || payload.photos?.[0] || FALLBACK_IMAGE,
+  imagePreview: payload.imageUrl || payload.imagePreview || payload.photos?.[0] || FALLBACK_IMAGE,
+  image: payload.imageUrl || payload.imagePreview || payload.photos?.[0] || FALLBACK_IMAGE,
+  seller: payload.sellerName || "Admin",
+  sellerName: payload.sellerName || "Admin",
+  sellerEmail: payload.sellerEmail || "admin@college.ca",
+  sellerRating: Number(payload.sellerRating) || 5,
+  rating: Number(payload.sellerRating) || 5,
+  sellerBio:
+    payload.sellerBio ||
+    "Verified UniLife seller. Contact to confirm pickup details.",
+  status: payload.status || "Active",
+  postedAt: new Date().toISOString(),
+};
 
     return Promise.resolve(write(USER_LISTINGS_KEY, [newListing, ...listings]));
   },
