@@ -1,0 +1,27 @@
+﻿# Visual Studio
+.vs/
+bin/
+obj/
+
+# Local configuration
+appsettings.Development.json
+appsettings.Local.json
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Certificates
+*.pfx
+*.p12
+*.pem
+*.key
+
+# Logs
+logs/
+*.log
+
+# User-specific files
+*.user
+*.suo

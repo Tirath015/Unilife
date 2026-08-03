@@ -1,0 +1,58 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\tirat\\Downloads\\advanced .net server side tech\\Marketplace_capstone_feature_01\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{9DCFEC0E-EC2E-4C9F-86D1-C8BDD31C49AA}|Marketplace_capstone_feature_01.csproj|c:\\users\\tirat\\downloads\\advanced .net server side tech\\marketplace_capstone_feature_01\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{9DCFEC0E-EC2E-4C9F-86D1-C8BDD31C49AA}|Marketplace_capstone_feature_01.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9DCFEC0E-EC2E-4C9F-86D1-C8BDD31C49AA}|Marketplace_capstone_feature_01.csproj|c:\\users\\tirat\\downloads\\advanced .net server side tech\\marketplace_capstone_feature_01\\.gitignore\\textfile.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{9DCFEC0E-EC2E-4C9F-86D1-C8BDD31C49AA}|Marketplace_capstone_feature_01.csproj|solutionrelative:.gitignore\\textfile.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 100,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "TextFile.txt",
+              "DocumentMoniker": "C:\\Users\\tirat\\Downloads\\advanced .net server side tech\\Marketplace_capstone_feature_01\\.gitignore\\TextFile.txt",
+              "RelativeDocumentMoniker": ".gitignore\\TextFile.txt",
+              "ToolTip": "C:\\Users\\tirat\\Downloads\\advanced .net server side tech\\Marketplace_capstone_feature_01\\.gitignore\\TextFile.txt",
+              "RelativeToolTip": ".gitignore\\TextFile.txt",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
+              "WhenOpened": "2026-08-03T01:44:16.755Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\tirat\\Downloads\\advanced .net server side tech\\Marketplace_capstone_feature_01\\appsettings.json",
+              "RelativeDocumentMoniker": "appsettings.json",
+              "ToolTip": "C:\\Users\\tirat\\Downloads\\advanced .net server side tech\\Marketplace_capstone_feature_01\\appsettings.json",
+              "RelativeToolTip": "appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACIAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-08-03T01:41:50.395Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{56df62a4-05a3-4e5b-aa1a-99371ccfb997}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
