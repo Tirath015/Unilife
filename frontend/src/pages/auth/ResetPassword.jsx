@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import {
+  Link,
+  useNavigate,
+  useSearchParams,
+} from "react-router-dom";
+
+import { Logo } from "../../components/layout/Logo";
 import { authService } from "../../services/authService";
 import { getPasswordErrors } from "../../utils/validators";
 
@@ -7,33 +13,61 @@ export function ResetPassword() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
-  const token = searchParams.get("token");
+  const emailFromUrl = searchParams.get("email") || "";
+  const tokenFromUrl = searchParams.get("token") || "";
 
   const [form, setForm] = useState({
+    email: emailFromUrl,
     newPassword: "",
     confirmPassword: "",
   });
 
   const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] =
+    useState(false);
+
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
 
+  function updateForm(field, value) {
+    setForm((currentForm) => ({
+      ...currentForm,
+      [field]: value,
+    }));
+  }
+
   async function handleSubmit(event) {
     event.preventDefault();
+
     setError("");
     setSuccess("");
 
-    if (!token) {
+    const email = form.email.trim();
+
+    if (!email) {
+      setError("Email address is required.");
+      return;
+    }
+
+    if (!tokenFromUrl) {
       setError("Invalid or missing reset token.");
       return;
     }
 
-    const passwordErrors = getPasswordErrors(form.newPassword);
+    const passwordErrors = getPasswordErrors(
+      form.newPassword
+    );
 
     if (passwordErrors.length > 0) {
       setError(passwordErrors[0]);
+      return;
+    }
+
+    if (form.newPassword.length < 6) {
+      setError(
+        "The new password must contain at least 6 characters."
+      );
       return;
     }
 
@@ -45,18 +79,33 @@ export function ResetPassword() {
     setLoading(true);
 
     try {
-      await authService.resetPassword({
-        token,
+      const response = await authService.resetPassword({
+        email,
+        token: tokenFromUrl,
         newPassword: form.newPassword,
       });
 
-      setSuccess("Password updated successfully. Redirecting to login...");
+      setSuccess(
+        response?.message ||
+          "Password reset successfully. Redirecting to login..."
+      );
 
-      setTimeout(() => {
-        navigate("/login");
-      }, 1200);
+      setForm((currentForm) => ({
+        ...currentForm,
+        newPassword: "",
+        confirmPassword: "",
+      }));
+
+      window.setTimeout(() => {
+        navigate("/login", {
+          replace: true,
+        });
+      }, 1500);
     } catch (err) {
-      setError(err.message || "Unable to reset password.");
+      setError(
+        err?.message ||
+          "Unable to reset your password."
+      );
     } finally {
       setLoading(false);
     }
@@ -65,48 +114,97 @@ export function ResetPassword() {
   return (
     <main className="auth-page">
       <section className="auth-brand-panel">
-        <div className="logo">
-          <span className="logo-mark material-symbols-rounded">school</span>
-          UniLife
-        </div>
+        <Logo />
 
-        <h1>Create new password</h1>
+        <h1>Create a new password</h1>
 
         <p>
-          Choose a secure password for your UniLife account. After updating it,
-          you can log in using your new password.
+          Enter a secure password for your UniLife account.
+          After resetting it, you can sign in using the new
+          password.
         </p>
       </section>
 
       <section className="auth-card">
         <h2>Reset Password</h2>
-        <p>Enter and confirm your new password.</p>
 
-        {error && <div className="form-error">{error}</div>}
-        {success && <div className="success-box">{success}</div>}
+        <p>
+          Confirm your account email and enter your new password.
+        </p>
 
-        <form className="form-grid" onSubmit={handleSubmit}>
+        {error && (
+          <div className="form-error" role="alert">
+            {error}
+          </div>
+        )}
+
+        {success && (
+          <div className="success-box" role="status">
+            {success}
+          </div>
+        )}
+
+        <form
+          className="form-grid"
+          onSubmit={handleSubmit}
+        >
+          <label>
+            Email Address
+
+            <input
+              type="email"
+              placeholder="student@example.com"
+              value={form.email}
+              onChange={(event) =>
+                updateForm("email", event.target.value)
+              }
+              autoComplete="email"
+              disabled={loading}
+              required
+            />
+          </label>
+
           <label>
             New Password
+
             <div className="password-field">
               <input
-                type={showPassword ? "text" : "password"}
+                type={
+                  showPassword ? "text" : "password"
+                }
                 placeholder="Enter new password"
                 value={form.newPassword}
                 onChange={(event) =>
-                  setForm({ ...form, newPassword: event.target.value })
+                  updateForm(
+                    "newPassword",
+                    event.target.value
+                  )
                 }
+                autoComplete="new-password"
+                disabled={loading}
+                minLength={6}
                 required
               />
 
               <button
                 type="button"
                 className="password-toggle-button"
-                onClick={() => setShowPassword((current) => !current)}
-                aria-label={showPassword ? "Hide password" : "Show password"}
+                onClick={() =>
+                  setShowPassword(
+                    (currentValue) => !currentValue
+                  )
+                }
+                aria-label={
+                  showPassword
+                    ? "Hide password"
+                    : "Show password"
+                }
+                disabled={loading}
               >
                 <span className="material-symbols-rounded">
-                  {showPassword ? "visibility_off" : "visibility"}
+                  {showPassword
+                    ? "visibility_off"
+                    : "visibility"}
                 </span>
               </button>
             </div>
@@ -114,34 +212,60 @@ export function ResetPassword() {
 
           <label>
             Confirm New Password
+
             <div className="password-field">
               <input
-                type={showConfirmPassword ? "text" : "password"}
+                type={
+                  showConfirmPassword
+                    ? "text"
+                    : "password"
+                }
                 placeholder="Confirm new password"
                 value={form.confirmPassword}
                 onChange={(event) =>
-                  setForm({ ...form, confirmPassword: event.target.value })
+                  updateForm(
+                    "confirmPassword",
+                    event.target.value
+                  )
                 }
+                autoComplete="new-password"
+                disabled={loading}
+                minLength={6}
                 required
               />
 
               <button
                 type="button"
                 className="password-toggle-button"
-                onClick={() => setShowConfirmPassword((current) => !current)}
-                aria-label={
-                  showConfirmPassword ? "Hide password" : "Show password"
+                onClick={() =>
+                  setShowConfirmPassword(
+                    (currentValue) => !currentValue
+                  )
                 }
+                aria-label={
+                  showConfirmPassword
+                    ? "Hide password"
+                    : "Show password"
+                }
+                disabled={loading}
               >
                 <span className="material-symbols-rounded">
-                  {showConfirmPassword ? "visibility_off" : "visibility"}
+                  {showConfirmPassword
+                    ? "visibility_off"
+                    : "visibility"}
                 </span>
               </button>
             </div>
           </label>
 
-          <button className="btn btn-primary btn-md" type="submit" disabled={loading}>
-            {loading ? "Updating..." : "Update Password"}
+          <button
+            className="btn btn-primary btn-md"
+            type="submit"
+            disabled={loading}
+          >
+            {loading
+              ? "Updating..."
+              : "Update Password"}
           </button>
         </form>
 

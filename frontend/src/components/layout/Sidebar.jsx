@@ -4,11 +4,25 @@ import { Logo } from "./Logo";
 
 const navItems = [
   { to: "/dashboard", icon: "dashboard", label: "Dashboard" },
+
   { to: "/marketplace", icon: "storefront", label: "Marketplace" },
+
+  { to: "/my-listings", icon: "inventory_2", label: "My Listings" },
+
+  {
+    to: "/my-transactions",
+    icon: "handshake",
+    label: "My Transactions",
+  },
+
   { to: "/events", icon: "calendar_month", label: "Campus Events" },
+
   { to: "/resources", icon: "local_library", label: "Resources" },
+
   { to: "/discussions", icon: "forum", label: "Discussions" },
+
   { to: "/jobs", icon: "work", label: "Student Jobs" },
+
   { to: "/profile", icon: "person", label: "Profile" },
 ];
 

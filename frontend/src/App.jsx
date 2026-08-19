@@ -8,8 +8,19 @@ import { AdminPrototypes } from "./admin/pages/AdminPrototypes";
 import { AdminReports } from "./admin/pages/AdminReports";
 import { AdminUsers } from "./admin/pages/AdminUsers";
 
+import { SellerProfile } from "./pages/marketplace/SellerProfile";
+
+
+import { MyTransactions } from "./pages/marketplace/MyTransactions";
+
 import { AppLayout } from "./components/layout/AppLayout";
 import { ProtectedRoute } from "./components/ProtectedRoute";
+
+
+import EditListing from "./pages/listing/EditListing";
+
+
+import { MyListings } from "./pages/listing/MyListings";
 
 import { AuthProvider } from "./context/AuthContext";
 import { WishlistProvider } from "./context/WishlistContext";
@@ -33,7 +44,13 @@ import { Wishlist } from "./pages/marketplace/Wishlist";
 import { Discussions } from "./pages/prototype/Discussions";
 import { Events } from "./pages/prototype/Events";
 import { Jobs } from "./pages/prototype/Jobs";
-import { Notifications } from "./pages/prototype/Notifications";
+import { Notifications } from "./pages/Notifications";
+
+import { Inbox } from "./pages/messages/Inbox";
+import { Conversation } from "./pages/messages/Conversation";
+
+
+
 import { Resources } from "./pages/prototype/Resources";
 
 function AppRoutes() {
@@ -69,6 +86,32 @@ function AppRoutes() {
           <Route path="/marketplace/create" element={<CreateListing />} />
           <Route path="/marketplace/:id" element={<ProductDetails />} />
           <Route path="/wishlist" element={<Wishlist />} />
+          <Route path="/messages" element={<Inbox />} />
+
+<Route
+  path="/messages/:otherUserId/:listingId"
+  element={<Conversation />}
+/>
+
+<Route
+  path="/my-listings"
+  element={<MyListings />}
+/>
+
+<Route
+    path="/marketplace/edit/:id"
+    element={<EditListing />}
+/>
+
+<Route
+  path="/seller/:sellerId"
+  element={<SellerProfile />}
+/>
+
+<Route
+  path="/my-transactions"
+  element={<MyTransactions />}
+/>
           <Route path="/notifications" element={<Notifications />} />
           <Route path="/events" element={<Events />} />
           <Route path="/resources" element={<Resources />} />

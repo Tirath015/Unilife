@@ -1,17 +1,33 @@
-import React, { createContext, useContext, useEffect, useMemo, useState } from "react";
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
+
 import { STORAGE_KEYS } from "../api/config";
 import { authService } from "../services/authService";
 
 const AuthContext = createContext(null);
+
 const PROFILE_PHOTOS_KEY = "unilife_profile_photos";
 
 function getSavedProfilePhotos() {
-  const saved = localStorage.getItem(PROFILE_PHOTOS_KEY);
-  return saved ? JSON.parse(saved) : {};
+  try {
+    const savedPhotos = localStorage.getItem(PROFILE_PHOTOS_KEY);
+
+    return savedPhotos ? JSON.parse(savedPhotos) : {};
+  } catch (error) {
+    console.error("Unable to load profile photos:", error);
+    return {};
+  }
 }
 
 function attachSavedPhoto(user) {
-  if (!user?.email) return user;
+  if (!user?.email) {
+    return user;
+  }
 
   const photos = getSavedProfilePhotos();
 
@@ -21,37 +37,80 @@ function attachSavedPhoto(user) {
   };
 }
 
-export function AuthProvider({ children }) {
-  const [user, setUser] = useState(() => {
-    const saved = localStorage.getItem(STORAGE_KEYS.user);
-    return saved ? attachSavedPhoto(JSON.parse(saved)) : null;
-  });
+function getStoredUser() {
+  try {
+    const savedUser = localStorage.getItem(STORAGE_KEYS.user);
 
-  const [loading, setLoading] = useState(false);
+    if (!savedUser) {
+      return null;
+    }
+
+    return attachSavedPhoto(JSON.parse(savedUser));
+  } catch (error) {
+    console.error("Unable to load stored user:", error);
+
+    localStorage.removeItem(STORAGE_KEYS.user);
+    localStorage.removeItem(STORAGE_KEYS.token);
+
+    return null;
+  }
+}
+
+export function AuthProvider({ children }) {
+  const [user, setUser] = useState(() => getStoredUser());
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     let mounted = true;
-    const token = localStorage.getItem(STORAGE_KEYS.token);
 
-    if (!token) return;
+    async function restoreSession() {
+      try {
+        const token = localStorage.getItem(STORAGE_KEYS.token);
 
-    setLoading(true);
+        if (!token) {
+          if (mounted) {
+            setUser(null);
+          }
 
-    authService
-      .getCurrentUser()
-      .then((profile) => {
-        if (mounted && profile) {
-          const profileWithPhoto = attachSavedPhoto(profile);
-          setUser(profileWithPhoto);
-          localStorage.setItem(
-            STORAGE_KEYS.user,
-            JSON.stringify(profileWithPhoto)
-          );
+          return;
         }
-      })
-      .finally(() => {
-        if (mounted) setLoading(false);
-      });
+
+        const currentUser = await authService.getCurrentUser();
+
+        if (!mounted) {
+          return;
+        }
+
+        if (!currentUser) {
+          authService.logout();
+          setUser(null);
+          return;
+        }
+
+        const userWithPhoto = attachSavedPhoto(currentUser);
+
+        setUser(userWithPhoto);
+
+        localStorage.setItem(
+          STORAGE_KEYS.user,
+          JSON.stringify(userWithPhoto)
+        );
+      } catch (error) {
+        console.error("Unable to restore login session:", error);
+
+        authService.logout();
+
+        if (mounted) {
+          setUser(null);
+        }
+      } finally {
+        if (mounted) {
+          setLoading(false);
+        }
+      }
+    }
+
+    restoreSession();
 
     return () => {
       mounted = false;
@@ -60,10 +119,15 @@ export function AuthProvider({ children }) {
 
   async function login(credentials) {
     const response = await authService.login(credentials);
+
     const userWithPhoto = attachSavedPhoto(response.user);
 
     setUser(userWithPhoto);
-    localStorage.setItem(STORAGE_KEYS.user, JSON.stringify(userWithPhoto));
+
+    localStorage.setItem(
+      STORAGE_KEYS.user,
+      JSON.stringify(userWithPhoto)
+    );
 
     return {
       ...response,
@@ -72,20 +136,17 @@ export function AuthProvider({ children }) {
   }
 
   async function register(payload) {
-    const response = await authService.register(payload);
-    const userWithPhoto = attachSavedPhoto(response.user);
-
-    setUser(userWithPhoto);
-    localStorage.setItem(STORAGE_KEYS.user, JSON.stringify(userWithPhoto));
-
-    return {
-      ...response,
-      user: userWithPhoto,
-    };
+    /*
+     * Registration does not log the user in.
+     * The user must verify their email first.
+     */
+    return authService.register(payload);
   }
 
   function updateProfilePhoto(photoUrl) {
-    if (!user) return;
+    if (!user) {
+      return;
+    }
 
     const updatedUser = {
       ...user,
@@ -96,41 +157,72 @@ export function AuthProvider({ children }) {
 
     if (user.email) {
       photos[user.email] = photoUrl;
-      localStorage.setItem(PROFILE_PHOTOS_KEY, JSON.stringify(photos));
+
+      localStorage.setItem(
+        PROFILE_PHOTOS_KEY,
+        JSON.stringify(photos)
+      );
     }
 
     setUser(updatedUser);
-    localStorage.setItem(STORAGE_KEYS.user, JSON.stringify(updatedUser));
+
+    localStorage.setItem(
+      STORAGE_KEYS.user,
+      JSON.stringify(updatedUser)
+    );
+  }
+
+  function updateCurrentUser(updatedInformation) {
+    if (!user) {
+      return;
+    }
+
+    const updatedUser = {
+      ...user,
+      ...updatedInformation,
+    };
+
+    setUser(updatedUser);
+
+    localStorage.setItem(
+      STORAGE_KEYS.user,
+      JSON.stringify(updatedUser)
+    );
   }
 
   function logout() {
     authService.logout();
     setUser(null);
-    localStorage.removeItem(STORAGE_KEYS.user);
-    localStorage.removeItem(STORAGE_KEYS.token);
   }
 
   const value = useMemo(
     () => ({
       user,
       loading,
-      isAuthenticated: Boolean(user),
+      isAuthenticated: Boolean(
+        user && localStorage.getItem(STORAGE_KEYS.token)
+      ),
       login,
       register,
       logout,
       updateProfilePhoto,
+      updateCurrentUser,
     }),
     [user, loading]
   );
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={value}>
+      {children}
+    </AuthContext.Provider>
+  );
 }
 
 export function useAuth() {
   const context = useContext(AuthContext);
 
   if (!context) {
-    throw new Error("useAuth must be used inside AuthProvider");
+    throw new Error("useAuth must be used inside AuthProvider.");
   }
 
   return context;

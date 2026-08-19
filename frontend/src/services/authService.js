@@ -1,301 +1,139 @@
 import { apiRequest } from "../api/httpClient";
-import { STORAGE_KEYS, USE_MOCKS } from "../api/config";
-import { delay } from "./mockHelpers";
+import { STORAGE_KEYS } from "../api/config";
 
-const MOCK_USERS_KEY = "unilife_mock_users";
-
-const mockAdminUser = {
-  id: 999,
-  fullName: "Admin User",
-  email: "admin@college.ca",
-  password: "Password123!",
-  studentId: "ADMIN001",
-  campus: "Main Campus",
-  program: "Platform Management",
-  role: "admin",
-  status: "Active",
-  photoUrl: "",
-};
-
-function getMockUsers() {
-  const savedUsers = localStorage.getItem(MOCK_USERS_KEY);
-  const users = savedUsers ? JSON.parse(savedUsers) : [];
-
-  const hasAdmin = users.some(
-    (user) => user.email?.toLowerCase() === mockAdminUser.email.toLowerCase()
-  );
-
-  if (!hasAdmin) {
-    const updatedUsers = [mockAdminUser, ...users];
-    localStorage.setItem(MOCK_USERS_KEY, JSON.stringify(updatedUsers));
-    return updatedUsers;
+function normalizeUser(user) {
+  if (!user) {
+    return null;
   }
 
-  return users;
+  return {
+    ...user,
+
+    id: user.id ?? user.userId,
+    userId: user.userId ?? user.id,
+
+    role: user.role?.toLowerCase() || "user",
+
+    photoUrl:
+      user.photoUrl ??
+      user.profileImageUrl ??
+      "",
+  };
 }
 
-function saveMockUsers(users) {
-  localStorage.setItem(MOCK_USERS_KEY, JSON.stringify(users));
-}
+function getStoredUser() {
+  try {
+    const storedUser = localStorage.getItem(STORAGE_KEYS.user);
 
-function removePassword(user) {
-  const { password, ...safeUser } = user;
-  return safeUser;
+    if (!storedUser) {
+      return null;
+    }
+
+    return JSON.parse(storedUser);
+  } catch (error) {
+    console.error("Unable to read the stored user:", error);
+
+    localStorage.removeItem(STORAGE_KEYS.user);
+    localStorage.removeItem(STORAGE_KEYS.token);
+
+    return null;
+  }
 }
 
 export const authService = {
   async login(credentials) {
-    if (USE_MOCKS) {
-      const email = credentials.email?.toLowerCase().trim();
-      const password = credentials.password;
-
-      const users = getMockUsers();
-
-      const matchedUser = users.find(
-        (user) =>
-          user.email?.toLowerCase().trim() === email &&
-          user.password === password
-      );
-
-      if (!matchedUser) {
-        throw new Error("Invalid email or password.");
-      }
-
-      if (matchedUser.status === "Blocked") {
-        throw new Error("This account is blocked. Please contact admin.");
-      }
-
-      const safeUser = removePassword(matchedUser);
-
-      const response = {
-        token:
-          safeUser.role === "admin"
-            ? "mock-admin-jwt-token"
-            : "mock-user-jwt-token",
-        user: safeUser,
-      };
-
-      localStorage.setItem(STORAGE_KEYS.token, response.token);
-      localStorage.setItem(STORAGE_KEYS.user, JSON.stringify(response.user));
-
-      return delay(response);
-    }
-
-    const response = await apiRequest("/auth/login", {
+    const response = await apiRequest("/Auth/login", {
       method: "POST",
-      body: credentials,
+      body: {
+        email: credentials.email?.trim(),
+        password: credentials.password,
+      },
     });
 
-    localStorage.setItem(STORAGE_KEYS.token, response.token);
-    localStorage.setItem(STORAGE_KEYS.user, JSON.stringify(response.user));
+    if (!response?.token) {
+      throw new Error("The server did not return a login token.");
+    }
 
-    return response;
+    const normalizedUser = normalizeUser(response.user);
+
+    localStorage.setItem(STORAGE_KEYS.token, response.token);
+    localStorage.setItem(
+      STORAGE_KEYS.user,
+      JSON.stringify(normalizedUser)
+    );
+
+    return {
+      ...response,
+      user: normalizedUser,
+    };
   },
 
   async register(payload) {
-    if (USE_MOCKS) {
-      const users = getMockUsers();
-
-      const email = payload.email?.toLowerCase().trim();
-
-      const emailExists = users.some(
-        (user) => user.email?.toLowerCase().trim() === email
-      );
-
-      if (emailExists) {
-        throw new Error("An account with this email already exists.");
-      }
-
-      const newUser = {
-        id: Date.now(),
-        fullName: payload.fullName,
-        email: payload.email,
-        password: payload.password,
-        studentId: payload.studentId,
-        campus: payload.campus || "Main Campus",
-        program: payload.program || "Computer Systems Technology",
-        role: "student",
-        status: "Active",
-        photoUrl: "",
-      };
-
-      const updatedUsers = [newUser, ...users];
-      saveMockUsers(updatedUsers);
-
-      const safeUser = removePassword(newUser);
-
-      const response = {
-        token: "mock-user-jwt-token",
-        user: safeUser,
-      };
-
-      localStorage.setItem(STORAGE_KEYS.token, response.token);
-      localStorage.setItem(STORAGE_KEYS.user, JSON.stringify(response.user));
-
-      return delay(response);
-    }
-
-    const response = await apiRequest("/auth/register", {
+    return apiRequest("/Auth/register", {
       method: "POST",
-      body: payload,
+      body: {
+        fullName: payload.fullName?.trim(),
+        email: payload.email?.trim(),
+        password: payload.password,
+        phoneNumber: payload.phoneNumber?.trim() || null,
+      },
     });
+  },
 
-    localStorage.setItem(STORAGE_KEYS.token, response.token);
-    localStorage.setItem(STORAGE_KEYS.user, JSON.stringify(response.user));
+  async verifyEmail(token) {
+    const encodedToken = encodeURIComponent(token);
 
-    return response;
+    return apiRequest(`/Auth/verify-email?token=${encodedToken}`, {
+      method: "GET",
+    });
+  },
+
+  async resendVerification(email) {
+    return apiRequest("/Auth/resend-verification", {
+      method: "POST",
+      body: {
+        email: email?.trim(),
+      },
+    });
   },
 
   async forgotPassword(email) {
-  if (USE_MOCKS) {
-    const users = getMockUsers();
-    const normalizedEmail = email?.toLowerCase().trim();
-
-    const matchedUser = users.find(
-      (user) => user.email?.toLowerCase().trim() === normalizedEmail
-    );
-
-    if (!matchedUser) {
-      throw new Error("No account found with this email.");
-    }
-
-    const token = btoa(`${normalizedEmail}:${Date.now()}`);
-
-    const resetRequests = JSON.parse(
-      localStorage.getItem("unilife_password_reset_tokens") || "{}"
-    );
-
-    resetRequests[token] = {
-      email: normalizedEmail,
-      createdAt: new Date().toISOString(),
-    };
-
-    localStorage.setItem(
-      "unilife_password_reset_tokens",
-      JSON.stringify(resetRequests)
-    );
-
-    return delay({
-      message: "Password reset email sent.",
-      token,
-      resetLink: `${window.location.origin}/reset-password?token=${token}`,
+    return apiRequest("/Auth/forgot-password", {
+      method: "POST",
+      body: {
+        email: email?.trim(),
+      },
     });
-  }
+  },
 
-  return apiRequest("/auth/forgot-password", {
-    method: "POST",
-    body: { email },
-  });
-},
-
-async resetPassword(payload) {
-  if (USE_MOCKS) {
-    const { token, newPassword } = payload;
-
-    const resetRequests = JSON.parse(
-      localStorage.getItem("unilife_password_reset_tokens") || "{}"
-    );
-
-    const request = resetRequests[token];
-
-    if (!request) {
-      throw new Error("Invalid or expired reset link.");
-    }
-
-    const users = getMockUsers();
-
-    const updatedUsers = users.map((user) =>
-      user.email?.toLowerCase().trim() === request.email
-        ? { ...user, password: newPassword }
-        : user
-    );
-
-    saveMockUsers(updatedUsers);
-
-    delete resetRequests[token];
-
-    localStorage.setItem(
-      "unilife_password_reset_tokens",
-      JSON.stringify(resetRequests)
-    );
-
-    const currentUser = JSON.parse(
-      localStorage.getItem(STORAGE_KEYS.user) || "null"
-    );
-
-    if (
-      currentUser?.email?.toLowerCase().trim() === request.email
-    ) {
-      localStorage.setItem(
-        STORAGE_KEYS.user,
-        JSON.stringify({
-          ...currentUser,
-        })
-      );
-    }
-
-    return delay({
-      message: "Password updated successfully.",
+  async resetPassword(payload) {
+    return apiRequest("/Auth/reset-password", {
+      method: "POST",
+      body: {
+        email: payload.email?.trim(),
+        token: payload.token,
+        newPassword: payload.newPassword,
+      },
     });
-  }
+  },
 
-  return apiRequest("/auth/reset-password", {
-    method: "POST",
-    body: payload,
-  });
-},
-async updatePassword(payload) {
-  if (USE_MOCKS) {
-    const currentUser = JSON.parse(
-      localStorage.getItem(STORAGE_KEYS.user) || "null"
-    );
-
-    if (!currentUser?.email) {
-      throw new Error("You must be logged in to update your password.");
-    }
-
-    const users = getMockUsers();
-
-    const matchedUser = users.find(
-      (user) =>
-        user.email?.toLowerCase().trim() ===
-        currentUser.email?.toLowerCase().trim()
-    );
-
-    if (!matchedUser) {
-      throw new Error("User account not found.");
-    }
-
-    if (matchedUser.password !== payload.currentPassword) {
-      throw new Error("Current password is incorrect.");
-    }
-
-    const updatedUsers = users.map((user) =>
-      user.email?.toLowerCase().trim() ===
-      currentUser.email?.toLowerCase().trim()
-        ? { ...user, password: payload.newPassword }
-        : user
-    );
-
-    saveMockUsers(updatedUsers);
-
-    return delay({
-      message: "Password updated successfully.",
-    });
-  }
-
-  return apiRequest("/auth/update-password", {
-    method: "POST",
-    body: payload,
-  });
-},
   async getCurrentUser() {
-    if (USE_MOCKS) {
-      const stored = localStorage.getItem(STORAGE_KEYS.user);
-      return delay(stored ? JSON.parse(stored) : null, 100);
+    const token = localStorage.getItem(STORAGE_KEYS.token);
+    const user = getStoredUser();
+
+    if (!token || !user) {
+      return null;
     }
 
-    return apiRequest("/auth/me");
+    return normalizeUser(user);
+  },
+
+  isAuthenticated() {
+    return Boolean(localStorage.getItem(STORAGE_KEYS.token));
+  },
+
+  getToken() {
+    return localStorage.getItem(STORAGE_KEYS.token);
   },
 
   logout() {

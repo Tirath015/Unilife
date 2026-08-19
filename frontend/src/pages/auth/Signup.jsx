@@ -1,65 +1,56 @@
-import React, { useMemo, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+
 import { Logo } from "../../components/layout/Logo";
 import { Button } from "../../components/ui/Button";
 import { useAuth } from "../../context/AuthContext";
-import { authService } from "../../services/authService";
 import { getPasswordErrors } from "../../utils/validators";
 
-const collegeCampuses = {
-  Sheridan: [
-    "Davis Campus",
-    "Trafalgar Road Campus",
-    "Hazel McCallion Campus",
-  ],
-  Humber: [
-    "North Campus",
-    "Lakeshore Campus",
-    "International Graduate School",
-  ],
-  Seneca: [
-    "Newnham Campus",
-    "King Campus",
-    "Seneca@York Campus",
-    "Markham Campus",
-  ],
-  Conestoga: [
-    "Doon Campus",
-    "Waterloo Campus",
-    "Cambridge Campus",
-    "Guelph Campus",
-    "Brantford Campus",
-    "Milton Campus",
-  ],
-};
-
 export function Signup() {
-  const navigate = useNavigate();
-  const { verifyEmailSignup } = useAuth();
+  const { register } = useAuth();
 
   const [form, setForm] = useState({
     fullName: "",
     email: "",
-    college: "",
-    campus: "",
+    phoneNumber: "",
     password: "",
     confirmPassword: "",
   });
 
   const [error, setError] = useState("");
-  const [verificationMessage, setVerificationMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
   const [loading, setLoading] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  const campuses = useMemo(() => {
-    return form.college ? collegeCampuses[form.college] || [] : [];
-  }, [form.college]);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] =
+    useState(false);
+
+  function updateForm(field, value) {
+    setForm((currentForm) => ({
+      ...currentForm,
+      [field]: value,
+    }));
+  }
 
   async function handleSubmit(event) {
     event.preventDefault();
+
     setError("");
-    setVerificationMessage("");
+    setSuccessMessage("");
+
+    const fullName = form.fullName.trim();
+    const email = form.email.trim();
+    const phoneNumber = form.phoneNumber.trim();
+
+    if (!fullName) {
+      setError("Please enter your full name.");
+      return;
+    }
+
+    if (!email) {
+      setError("Please enter your email address.");
+      return;
+    }
 
     const passwordErrors = getPasswordErrors(form.password);
 
@@ -73,42 +64,33 @@ export function Signup() {
       return;
     }
 
-    if (!form.college || !form.campus) {
-      setError("Please select your college and campus.");
-      return;
-    }
-
     setLoading(true);
 
     try {
-      const response = await authService.register({
-        fullName: form.fullName,
-        email: form.email,
-        college: form.college,
-        campus: form.campus,
-        program: "Computer Systems Technology",
+      const response = await register({
+        fullName,
+        email,
         password: form.password,
+        phoneNumber: phoneNumber || null,
       });
 
-      setVerificationMessage(
-        `A verification link has been sent to ${form.email}. Please check your inbox to verify your account.`
+      setSuccessMessage(
+        response?.message ||
+          "Registration successful. Please check your email and verify your account before logging in."
       );
 
-      alert(
-        `A verification link has been sent to ${form.email}.\n\nFor mock demo, click OK and we will verify it automatically.`
-      );
-
-      setTimeout(async () => {
-        const verifyResponse = await verifyEmailSignup(response.token);
-
-        if (verifyResponse.user?.role === "admin") {
-          navigate("/admin");
-        } else {
-          navigate("/dashboard");
-        }
-      }, 1200);
+      setForm({
+        fullName: "",
+        email: "",
+        phoneNumber: "",
+        password: "",
+        confirmPassword: "",
+      });
     } catch (err) {
-      setError(err.message || "Registration failed.");
+      setError(
+        err?.message ||
+          "Registration failed. Please check your information and try again."
+      );
     } finally {
       setLoading(false);
     }
@@ -118,113 +100,124 @@ export function Signup() {
     <main className="auth-page">
       <section className="auth-brand-panel">
         <Logo />
-        <h1>Create your student account</h1>
+
+        <h1>Create your UniLife account</h1>
+
         <p>
-          Join UniLife using your college email, college name, campus, and secure
-          password. Your email must be verified before opening the dashboard.
+          Register using your name, email address, phone number, and
+          password. You must verify your email before logging in.
         </p>
       </section>
 
       <section className="auth-card">
-        <h2>Sign up</h2>
-        <p>Join with your college or university details.</p>
+        <h2>Create account</h2>
 
-        {error && <div className="form-error">{error}</div>}
-        {verificationMessage && (
-          <div className="success-box">{verificationMessage}</div>
+        <p>Enter your details to register.</p>
+
+        {error && (
+          <div className="form-error" role="alert">
+            {error}
+          </div>
         )}
 
-        <form onSubmit={handleSubmit} className="form-grid two-col-form">
-          <label>
+        {successMessage && (
+          <div className="success-box" role="status">
+            <p>{successMessage}</p>
+
+            <p>
+              After verifying your email,{" "}
+              <Link to="/login">continue to login</Link>.
+            </p>
+          </div>
+        )}
+
+        <form
+          onSubmit={handleSubmit}
+          className="form-grid two-col-form"
+        >
+          <label className="span-2">
             Full Name
+
             <input
+              type="text"
               value={form.fullName}
               onChange={(event) =>
-                setForm({ ...form, fullName: event.target.value })
+                updateForm("fullName", event.target.value)
               }
-              placeholder="Student Name"
+              placeholder="Enter your full name"
+              autoComplete="name"
+              disabled={loading}
               required
             />
           </label>
 
-          <label>
-            College/University Email
+          <label className="span-2">
+            Email Address
+
             <input
               type="email"
               value={form.email}
               onChange={(event) =>
-                setForm({ ...form, email: event.target.value })
+                updateForm("email", event.target.value)
               }
-              placeholder="student@college.ca"
+              placeholder="student@example.com"
+              autoComplete="email"
+              disabled={loading}
               required
             />
           </label>
 
-          <label>
-            College
-            <select
-              value={form.college}
-              onChange={(event) =>
-                setForm({
-                  ...form,
-                  college: event.target.value,
-                  campus: "",
-                })
-              }
-              required
-            >
-              <option value="">Select college</option>
-              {Object.keys(collegeCampuses).map((college) => (
-                <option key={college} value={college}>
-                  {college}
-                </option>
-              ))}
-            </select>
-          </label>
+          <label className="span-2">
+            Phone Number
 
-          <label>
-            Campus
-            <select
-              value={form.campus}
+            <input
+              type="tel"
+              value={form.phoneNumber}
               onChange={(event) =>
-                setForm({ ...form, campus: event.target.value })
+                updateForm("phoneNumber", event.target.value)
               }
-              required
-              disabled={!form.college}
-            >
-              <option value="">
-                {form.college ? "Select campus" : "Select college first"}
-              </option>
-
-              {campuses.map((campus) => (
-                <option key={campus} value={campus}>
-                  {campus}
-                </option>
-              ))}
-            </select>
+              placeholder="Optional phone number"
+              autoComplete="tel"
+              disabled={loading}
+            />
           </label>
 
           <label>
             Password
+
             <div className="password-field">
               <input
                 type={showPassword ? "text" : "password"}
                 value={form.password}
                 onChange={(event) =>
-                  setForm({ ...form, password: event.target.value })
+                  updateForm("password", event.target.value)
                 }
                 placeholder="Create password"
+                autoComplete="new-password"
+                disabled={loading}
+                minLength={6}
                 required
               />
 
               <button
                 type="button"
                 className="password-toggle-button"
-                onClick={() => setShowPassword((current) => !current)}
-                aria-label={showPassword ? "Hide password" : "Show password"}
+                onClick={() =>
+                  setShowPassword(
+                    (currentValue) => !currentValue
+                  )
+                }
+                aria-label={
+                  showPassword
+                    ? "Hide password"
+                    : "Show password"
+                }
+                disabled={loading}
               >
                 <span className="material-symbols-rounded">
-                  {showPassword ? "visibility_off" : "visibility"}
+                  {showPassword
+                    ? "visibility_off"
+                    : "visibility"}
                 </span>
               </button>
             </div>
@@ -232,41 +225,64 @@ export function Signup() {
 
           <label>
             Confirm Password
+
             <div className="password-field">
               <input
-                type={showConfirmPassword ? "text" : "password"}
+                type={
+                  showConfirmPassword ? "text" : "password"
+                }
                 value={form.confirmPassword}
                 onChange={(event) =>
-                  setForm({ ...form, confirmPassword: event.target.value })
+                  updateForm(
+                    "confirmPassword",
+                    event.target.value
+                  )
                 }
                 placeholder="Retype password"
+                autoComplete="new-password"
+                disabled={loading}
+                minLength={6}
                 required
               />
 
               <button
                 type="button"
                 className="password-toggle-button"
-                onClick={() => setShowConfirmPassword((current) => !current)}
+                onClick={() =>
+                  setShowConfirmPassword(
+                    (currentValue) => !currentValue
+                  )
+                }
                 aria-label={
                   showConfirmPassword
                     ? "Hide confirm password"
                     : "Show confirm password"
                 }
+                disabled={loading}
               >
                 <span className="material-symbols-rounded">
-                  {showConfirmPassword ? "visibility_off" : "visibility"}
+                  {showConfirmPassword
+                    ? "visibility_off"
+                    : "visibility"}
                 </span>
               </button>
             </div>
           </label>
 
-          <Button disabled={loading} className="span-2">
-            {loading ? "Sending verification..." : "Create Account"}
+          <Button
+            type="submit"
+            disabled={loading}
+            className="span-2"
+          >
+            {loading
+              ? "Creating account..."
+              : "Create Account"}
           </Button>
         </form>
 
         <p className="auth-switch">
-          Already have an account? <Link to="/login">Log in</Link>
+          Already have an account?{" "}
+          <Link to="/login">Log in</Link>
         </p>
       </section>
     </main>
