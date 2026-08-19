@@ -1,0 +1,6 @@
+@Marketplace_capstone_feature_01_HostAddress = http://localhost:5287
+
+GET {{Marketplace_capstone_feature_01_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
