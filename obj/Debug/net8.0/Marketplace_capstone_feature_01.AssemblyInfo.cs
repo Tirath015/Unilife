@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Marketplace_capstone_feature_01")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f9f81fa97ab175d85b905aaf61b61fde97b15405")]
 [assembly: System.Reflection.AssemblyProductAttribute("Marketplace_capstone_feature_01")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Marketplace_capstone_feature_01")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

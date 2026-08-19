@@ -7,3 +7,10 @@ wwwroot\uploads\listings\4ee1f716-9bb6-4517-a5bf-2e16f4c1b607.jpeg
 wwwroot\uploads\listings\32e7ddc5-4758-4fd1-8dbb-30fe93f550e4.jpg
 wwwroot\uploads\listings\8ec5fa41-667a-458e-8ebc-d49d2ca8f6b3.jpg
 wwwroot\uploads\listings\5153635c-6282-4a89-a82f-5d1652a5d849.jpg
+wwwroot\uploads\listings\e7312f20-f84c-49ed-b6f3-8e3e15f09b6b.jpg
+wwwroot\uploads\listings\4c6bc599-9799-49ca-87d8-3a81a2c583cb.jpg
+wwwroot\uploads\listings\5d93f5e0-5dda-4ce5-85da-5e577755685b.jpg
+wwwroot\uploads\listings\987b11e1-a6e2-4b63-bf9c-f46e5cebb8a3.webp
+wwwroot\uploads\listings\abf71afb-abee-45c9-ad5b-380513f82e1d.webp
+wwwroot\uploads\listings\43ec498b-eaf9-4433-a5fb-20bec63cb5b1.webp
+wwwroot\uploads\listings\decd7b9c-0c9d-4ba9-a1db-585fae77c48e.webp

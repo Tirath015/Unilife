@@ -164,3 +164,4 @@ C:\Users\tirat\Downloads\advanced .net server side tech\Marketplace_capstone_fea
 C:\Users\tirat\Downloads\advanced .net server side tech\Marketplace_capstone_feature_01\bin\Debug\net8.0\System.Text.Encodings.Web.dll
 C:\Users\tirat\Downloads\advanced .net server side tech\Marketplace_capstone_feature_01\bin\Debug\net8.0\System.Text.Json.dll
 C:\Users\tirat\Downloads\advanced .net server side tech\Marketplace_capstone_feature_01\bin\Debug\net8.0\runtimes\browser\lib\net8.0\System.Text.Encodings.Web.dll
+C:\Users\tirat\Downloads\advanced .net server side tech\Marketplace_capstone_feature_01\obj\Debug\net8.0\Marketplace_capstone_feature_01.sourcelink.json
